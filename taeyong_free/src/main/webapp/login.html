@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>KPU SNS Login Page</title>
+<link rel="stylesheet" href="resources/login.css">
+<script src="https://kit.fontawesome.com/8e52ee94eb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div align="center">
+	<form class="box" action="http://localhost:8080/taeyong_free/UserServlet?cmd=login" method="post">
+		<div align="center" class="head">
+		<i class="fas fa-camera-retro">KPU SNS LOGIN</i>
+		</div>
+
+		<input type="text" name="id" placeholder="ID">
+		<input type="password" name="passwd" placeholder="Password">
+		<input type="submit" name="submit" value="로그인">
+	</form>
+</div>
+
+<div align="center">
+	<form class="box2" action="http://localhost:8080/taeyong_free/register.html">
+		계정이 존재하지 않습니까?<input type="submit" name="submit" value="회원가입">
+	</form>
+</div>
+</body>
+</html>

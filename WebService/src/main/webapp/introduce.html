@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>소개 페이지</title>
+<link rel="stylesheet" href="resources/introduce.css" type="text/css"></link>
+</head>
+<body>
+	<script>
+		function replace(){
+			var el1 = document.getElementsByClassName("GithubText")[0]
+			el1.innerHTML = '<img src="resources/github.jpg" style="clear: both; width:70px; height:30px;" alt="image"/>'
+			var el2 = document.getElementsByClassName("TstoryText")[0]
+			el2.innerHTML = '<img src="resources/tstory.jpg" style="clear: both; width:70px; height:30px;" alt="image"/>'
+			var el3 = document.getElementsByClassName("InstaText")[0]
+			el3.innerHTML = '<img src="resources/insta.jpg" style="clear: both; width:70px; height:30px;" alt="image"/>'			
+		}
+	</script>
+	<header>김태용을 소개하는 페이지입니다.</header>
+	<div>
+		<table>
+		<tr><th>이름:</th><td>김태용</td></tr>
+		<tr><th>성별:</th><td>남</td></tr>
+		<tr><th>취미:</th><td>여행</td></tr>
+		<tr><th>학과:</th><td>컴퓨터공학과 전공</td></tr>
+		<tr><th>관심분야:</th><td>Back-end 분야 및 Android</td></tr>
+	</table>
+	</div>
+	<hr width="100%" color="black" noshade/>
+	<div>
+		<img src="resources/backend.jpg" style="float: left; width:100px; height:50px;">
+	</div>
+	<div>
+		<img src="resources/android.jpg" style="float: left; width:100px; height:50px;">
+	</div>
+	<div>
+		<img src="resources/javascript.jpg" style="float: left; width:100px; height:50px;">
+	</div>
+	<div>
+		<img src="resources/nodejs.jpg" style="float: left; width:100px; height:50px;">
+	</div>
+	<div>
+		<img src="resources/kotlin.jpg" style="float: left; width:100px; height:50px;">
+	</div>
+	<hr width="100%" color="black" noshade/>
+	<div style="clear:both">
+		<Ul class="menubar">
+		<li class="GithubText"><a href="https://github.com/YongsHub">GitHub</a></li>
+		<li class="TstoryText"><a href="https://t-dragon.tistory.com/">T-STORY</a></li>
+		<li class="InstaText"><a href="https://www.instagram.com/?hl=ko">INSTAGRAM</a></li>
+	</Ul>
+	<button onclick="replace()">이미지로 교체하기</button>
+	<button type="button" onClick="location.href='introduce.html'">되돌리기</button>
+	</div>
+	<p id=sect4>아래 링크를 클릭하세요<br>
+		<a href="http://localhost:8080/WebService/StudentServlet?cmd=main"target="_self">메인 페이지 이동</a> 
+	</p>
+</body>
+</html>
