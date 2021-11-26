@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-
+<%@ page import="kpu.web.club.persistence.FileDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,22 +14,32 @@
 <link rel="stylesheet" href="resources/profile.css">
 </head>
 <body>
+
 <sql:query var="rs" dataSource="jdbc/mysql">
-		select * from file where userID = "<%=application.getAttribute("userID")%>"
+		select * from file where userID = "<%=application.getAttribute("userID")%>" ORDER BY SEQ DESC;
+</sql:query>
+
+<sql:query var="us" dataSource="jdbc/mysql">
+		select * from sns_user where id = "<%=application.getAttribute("userID")%>";
 </sql:query>
 	<header>
 		<div class="container">
 			<div class="profile">
 				<div class="profile-image">
-						<img src="<%="./upload/1.jpg"%>" alt= "User" width="150" height="150">
+				<c:forEach var="row" items="${us.rows}">
+					<img src="./upload/${row.fileName}" alt= "User" width="150" height="150">
+				</c:forEach>
 				</div>
 				<div class="profile-user-settings">
-					<h1 class="profile-user-name"><%=application.getAttribute("userID")%></h1>
-					<button class="btn profile-edit-btn">Edit Profile</button>
-					
+					<h1 class="profile-user-name"><%=application.getAttribute("userID")%>
+					</h1>
+					<input type="button" class="btn profile-edit-btn" value="프로필 수정" onclick="location.href='http://localhost:8080/taeyong_free/edit.jsp';">
+					<!-- <input type="file" name="file" id="file" style="display: none;"/> -->
 				</div>
 				<div class="profile-bio">
-					<p><span class="profile-real-name"><%=application.getAttribute("userID")%></span><br>Hello</p>
+					<c:forEach var="row" items="${us.rows}">
+						<p><span class="profile-real-name">${row.userID}</span><br>${row.text}</p>
+					</c:forEach>
 				</div>
 			</div>
 			<!--  End Of Profile Section -->
@@ -48,8 +58,7 @@
 				</div>
 				<div class="gallery-item-info">
 					<ul>
-						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden></i>56</li>
-						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden></i>2</li>
+						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden></i>게시물</li>
 					</ul>
 				</div>
 				</div>

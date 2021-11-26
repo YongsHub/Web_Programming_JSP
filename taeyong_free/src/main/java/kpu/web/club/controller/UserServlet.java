@@ -1,6 +1,7 @@
 package kpu.web.club.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -10,8 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.Session;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kpu.web.club.domain.UserVO;
+import kpu.web.club.persistence.FileDAO;
 import kpu.web.club.persistence.UserDAO;
 
 /**
@@ -83,9 +88,29 @@ public class UserServlet extends HttpServlet {
 			UserDAO userDao = new UserDAO();
 			
 			if(userDao.add(userVO)) {
-				view = request.getRequestDispatcher("welcome.jsp");
+				view = request.getRequestDispatcher("login.html");
 				view.forward(request, response);
 			}
+		}else if(cmdReq.equals("text")) {
+			new FileDAO().upload((String)request.getAttribute("userID"),(String)request.getAttribute("fileName"),(String)request.getAttribute("fileRealName"),request.getParameter("txt1"));
+			response.sendRedirect("welcome.jsp");
+		}else if(cmdReq.equals("edit")) {
+			response.sendRedirect("edit.jsp");
+		}else {
+			String directory = getServletContext().getRealPath("/upload/");
+			int maxSize = 1024 * 1024 * 100;
+			String encoding = "UTF-8";
+			
+			MultipartRequest multipartRequest = new MultipartRequest(request, directory, maxSize, encoding, new DefaultFileRenamePolicy());
+			String fileName = multipartRequest.getOriginalFileName("file");
+			String RealFileName = multipartRequest.getFilesystemName("file");
+			String userID = (String)multipartRequest.getParameter("userID");
+			
+			String text = multipartRequest.getParameter("text");
+			UserDAO userdvo = new UserDAO();
+			userdvo.porfileUpload(userID, fileName, RealFileName, text);
+			System.out.println(fileName+","+userID+","+text);
+			response.sendRedirect("profile.jsp");
 		}
 	}
 }

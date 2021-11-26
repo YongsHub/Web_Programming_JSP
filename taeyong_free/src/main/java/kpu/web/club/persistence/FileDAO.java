@@ -3,13 +3,11 @@ package kpu.web.club.persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FileDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs;
 	
 	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
 	String jdbc_url = "jdbc:mysql://localhost/jspdb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
@@ -39,14 +37,16 @@ public class FileDAO {
 		}
 	}
 	
-	public int upload(String userID, String fileName, String fileRealName) {
+	public int upload(String userID, String fileName, String fileRealName,String postText) {
 		connect();
-		String SQL = "INSERT INTO FILE VALUES (?,?,?)";
+		String SQL = "INSERT INTO FILE VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			pstmt.setString(2, fileName);
-			pstmt.setString(3, fileRealName);
+			pstmt.setString(1, "0");			
+			pstmt.setString(2, userID);
+			pstmt.setString(3, fileName);
+			pstmt.setString(4, fileRealName);
+			pstmt.setString(5, postText);
 			
 			return pstmt.executeUpdate(); // 성공시 1이라는 return 값이다.
 		}catch(Exception e) {
@@ -58,4 +58,24 @@ public class FileDAO {
 		
 		return -1;
 	}
+	
+//	public boolean post(String userID, String fileName,String postText) {
+//		connect();
+//		String SQL = "update file set postText= ? where userID = ? and fileName= ?";
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(SQL);
+//			pstmt.setString(1, postText);
+//			pstmt.setString(2, userID);
+//			pstmt.setString(3, fileName);
+//			pstmt.executeUpdate();
+//			return true; // 성공시 1이라는 return 값이다.
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		finally {
+//			disconnect();
+//		}
+//		
+//		return false;
+//	}
 }
