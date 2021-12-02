@@ -19,5 +19,13 @@
 		<input type="submit" name="submit" value="수정하기">
 	</form>
 </div>
+
+
+<div align="center">
+	<form class="box2" action="http://localhost:8080/taeyong_free/UserServlet?cmd=delete" method="post">
+		<input type="text" name="userID" value="<%=application.getAttribute("userID")%>" readonly>
+		<input type="submit" name="submit" value="게시물 삭제하기">
+	</form>
+</div>
 </body>
 </html>

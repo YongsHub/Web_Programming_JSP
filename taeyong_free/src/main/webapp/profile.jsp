@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ page import="kpu.web.club.persistence.FileDAO"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="mytag" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <link rel="stylesheet" href="resources/profile.css">
+<link rel="stylesheet" href="resources/style.css">
 </head>
 <body>
 
@@ -22,12 +24,27 @@
 <sql:query var="us" dataSource="jdbc/mysql">
 		select * from sns_user where id = "<%=application.getAttribute("userID")%>";
 </sql:query>
+	<nav class="navbar">
+		<div class="navbar__logo">
+			<i class="fas fa-camera-retro"></i>
+			<a href="">KPU SNS</a>
+		</div>
+		
+		<ul class="navbar__menu">
+			<mytag:item></mytag:item>
+		</ul>
+		
+		<ul class="navbar__icons">
+			<li><i class="fab fa-facebook-square"></i></li>
+		</ul>
+	
+	</nav>
 	<header>
 		<div class="container">
 			<div class="profile">
 				<div class="profile-image">
 				<c:forEach var="row" items="${us.rows}">
-					<img src="./upload/${row.fileName}" alt= "User" width="150" height="150">
+					<img src="./upload/${row.proFileImg}" alt= "User" width="150" height="150">
 				</c:forEach>
 				</div>
 				<div class="profile-user-settings">

@@ -96,7 +96,13 @@ public class UserServlet extends HttpServlet {
 			response.sendRedirect("welcome.jsp");
 		}else if(cmdReq.equals("edit")) {
 			response.sendRedirect("edit.jsp");
-		}else {
+		}else if(cmdReq.equals("delete")) {
+			String userID = request.getParameter("userID");
+			UserDAO userdvo = new UserDAO();
+			userdvo.delete(userID);
+			response.sendRedirect("profile.jsp");
+		}
+		else {
 			String directory = getServletContext().getRealPath("/upload/");
 			int maxSize = 1024 * 1024 * 100;
 			String encoding = "UTF-8";

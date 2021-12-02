@@ -28,10 +28,7 @@
 	%>
 	
 	<sql:query var="rs" dataSource="jdbc/mysql">
-		select * from file ORDER BY SEQ DESC;
-	</sql:query>
-	<sql:query var="us" dataSource="jdbc/mysql">
-		select * from sns_user where id = "<%=application.getAttribute("userID")%>";
+		select * from file ORDER BY SEQ;
 	</sql:query>
 	<nav class="navbar">
 		<div class="navbar__logo">
@@ -59,9 +56,7 @@
 				<div class="post__header">
 					<div class="post__user">
 						<div class="post__user--pp">
-							<c:forEach var="profile" items="${us.rows}">
-								<img src="./upload/${profile.fileName}">
-							</c:forEach>
+							<img src="./upload/${row.proFileImg}">
 						</div>
 						<div class="post__user--un">${row.userID}</div>
 					</div>

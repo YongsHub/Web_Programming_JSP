@@ -3,6 +3,7 @@ package kpu.web.club.persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FileDAO {
@@ -39,15 +40,23 @@ public class FileDAO {
 	
 	public int upload(String userID, String fileName, String fileRealName,String postText) {
 		connect();
-		String SQL = "INSERT INTO FILE VALUES (?,?,?,?,?)";
+		String SQL = "select proFileImg from file where userID= ?";
+		String proFileImg = "0.jpg";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				proFileImg = rs.getString("proFileImg");
+			}
+			SQL = "INSERT INTO FILE VALUES (?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, "0");			
 			pstmt.setString(2, userID);
 			pstmt.setString(3, fileName);
 			pstmt.setString(4, fileRealName);
 			pstmt.setString(5, postText);
-			
+			pstmt.setString(6, proFileImg);
 			return pstmt.executeUpdate(); // 성공시 1이라는 return 값이다.
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -56,6 +65,22 @@ public class FileDAO {
 			disconnect();
 		}
 		
+		return -1;
+	}
+	public int profileUpload(String userID,String FileName) {
+		connect();
+		try {
+			String sql = "UPDATE file SET proFileImg = ? where userID=?";
+			PreparedStatement pstmt  = conn.prepareStatement(sql);
+			pstmt.setString(1,FileName);
+			pstmt.setString(2, userID);
+			return pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
 		return -1;
 	}
 	

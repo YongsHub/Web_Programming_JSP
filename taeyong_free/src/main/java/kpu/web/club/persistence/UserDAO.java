@@ -44,13 +44,15 @@ public class UserDAO {
 	
 	public boolean add(UserVO vo) {
 		connect();
-		String sql = "insert into sns_user values (?,?,?,?)";
+		String sql = "insert into sns_user values (?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,vo.getId());
 			pstmt.setString(2,vo.getPasswd());
 			pstmt.setString(3,vo.getUsername());
 			pstmt.setString(4,vo.getMobile());
+			pstmt.setString(5, "0.jpg");
+			pstmt.setString(6, " ");
 			pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -96,20 +98,41 @@ public class UserDAO {
 				pstmt.setString(2, userID);
 				pstmt.executeUpdate();
 			}else if(text == null) {
-				String sql = "UPDATE sns_user SET fileName = ? where id=?";
+				String sql = "UPDATE sns_user SET proFileImg = ? where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, FileName);
+				pstmt.setString(2, userID);
+				pstmt.executeUpdate();
+				sql = "UPDATE fie SET proFileImg = ? where id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, FileName);
 				pstmt.setString(2, userID);
 				pstmt.executeUpdate();
 			}else {
-				String sql = "UPDATE sns_user SET fileName = ?, text= ? where id=?";
+				String sql = "UPDATE sns_user SET proFileImg = ?, text= ? where id=?";
 				pstmt = conn.prepareStatement(sql);
+				new FileDAO().profileUpload(userID,FileName);
 				pstmt.setString(1, FileName);
 				pstmt.setString(2, text);
 				pstmt.setString(3, userID);
 				pstmt.executeUpdate();
 			}
 			return 1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return -1;
+	}
+	
+	public int delete(String userID) {
+		try {
+			connect();
+			String SQL = "delete from file where userID = ?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

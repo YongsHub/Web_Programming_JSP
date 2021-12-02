@@ -90,6 +90,7 @@ img {
 	font-weight: 300;
 }
 
+.fas fa-home,
 .profile-edit-btn{
 	font-size: 1.4rem;
 	line-height: 1.8;
@@ -239,6 +240,7 @@ img {
 		font-size: 2.2rem;
 	}
 	
+	.fas fa-home,
 	.profile-edit-btn{
 		order: 1;
 		padding: 0;
@@ -251,6 +253,7 @@ img {
 		margin-top: 1.5rem;
 	}
 	
+	.fas fa-home,
 	.profile-edit-btn,
 	.profile-bio,
 	.profile-stats {
@@ -326,12 +329,13 @@ img {
 			grid-gap: 1rem;
 		}
 		
+		.fas fa-home,
 		.profile-edit-btn,
 		.profile-bio,
 		.profile-stats {
 			grid-column: 1/ -1;
 		}
-		
+		.fas fa-home,
 		.profile-user-settings,
 		.profile-edit-btn,
 		.profile-settings-btn,
